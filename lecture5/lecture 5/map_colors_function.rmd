@@ -1,0 +1,109 @@
+---
+title: "map_colors_function"
+author: "Reggie Blackwell"
+date: "April 20, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Lets look at the poor old function
+
+This is the function code from Barry's student.
+
+```{r}
+#old function
+map.colors <- function (value,high.low,palette) {
+  proportion <- ((value-high.low[1])/(high.low[2]-high.low[1]))
+  index <- round ((length(palette)-1)*proportion)+1
+  return (palette[index])
+}
+```
+
+Now lets to try to understand function....
+
+```{r}
+#all functions have 3 things, 1-name, 2-arguments(inputs), 3-body   name <- function(input){body}
+map.colors2 <- function (x, high.low=range(x), palette=cm.colors(100)) {
+  #appears to be finding the range or percent score we are in for 'x'
+  percent <- ((x-high.low[1]) / (high.low[2] - high.low[1]))
+  #palette is a vector, what is the lenght of it, then multiplying by the percent
+  index <- round ((length(palette) -1) * percent) + 1#the +1 is so that we do not multiply by 0 and get an error
+  #index <-  round(length(palette) * percent)
+  #in whcih bin are we in and returns a color
+  return (palette[index])
+}
+```
+
+## Working with our own function
+
+My first function
+```{r}
+
+add <- function(x, y=1) {
+ # Sum the input x and y
+ x + y
+}
+```
+
+Lets test our firts fuction
+#is the function vecotrized, means if you put in multiple inputs will it solve it all
+```{r}
+add(6,4)
+```
+
+```{r}
+add(x=6, y=4)
+```
+
+```{r}
+add(1,2,2)
+```
+```{r}
+#rescale fuctnion
+rescale <- function(x) {
+ rng <-range(x)
+ (x - rng[1]) / (rng[2] - rng[1])
+}
+```
+
+Test 2nd function
+```{r}
+rescale(c(1,10,"string"))
+```
+```{r}
+rescale2 <- function(x) {
+ rng <-range(x, na.rm=T)
+ (x - rng[1]) / (rng[2] - rng[1])
+}
+```
+
+
+```{r}
+rescale3 <- function(x, na.rm=TRUE, plot=FALSE) {
+ if(na.rm) {
+ rng <-range(x, na.rm=na.rm)
+ } else {
+ rng <-range(x)
+ }
+ print("Hello")
+ answer <- (x - rng[1]) / (rng[2] - rng[1])
+ 
+ #return(answer)#this makes the script stop and will not continue the rest of script
+ 
+ print("is it me you are looking for?")
+ 
+ if(plot) {
+ plot(answer, typ="b", lwd=4)
+ }
+ print("I can see it in ...")
+}
+```
+
+```{r}
+rescale(c(1,2, NA, 3, 10) plot=T)
+
+```
+
