@@ -1,2 +1,3 @@
-# bggn213
-class
+# Bioinformatics Bggn213
+
+Classwork homework
